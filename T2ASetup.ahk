@@ -32,6 +32,7 @@
       ;~ Get url and save to ini
       ;~ Get hotkeys and save to ini
 ; Release 1.0 14 Mar 2023
+; rev 1.0a  add Hotkeyname to show modifies as names
 
 
 
@@ -43,12 +44,13 @@ Setupdone := FileExist("t2a.ini")
 If ( setupdone = "A")
 	{
 		; Msgbox "read the setup"
-		  hotkey1 := IniRead("t2a.ini", "main", "hotkey")
-		  url     := IniRead("t2a.ini", "main", "url")
-		  rp      := Iniread("t2a.ini",  "main", "RootPerson")
-		  date    := Iniread("t2a.ini", "info", "date")
-		  path    := Iniread("t2a.ini", "info", "path")
-		 ; MsgBox "You haved defined your choices for the T2A script on " date "`nFor the Root person:" rp "`nUsing Ancestry.com tree:" url "`nAnd a your hotkeys are > " hotkey1 " <"
+		  hotkey1    := IniRead("t2a.ini", "main","hotkey")
+		  hotkeyname := Iniread("t2a.ini","main", "hotkeyname")
+		  url        := IniRead("t2a.ini","main", "url")
+		  rp         := Iniread("t2a.ini","main", "RootPerson")
+		  date       := Iniread("t2a.ini","info", "date")
+		  path       := Iniread("t2a.ini","info", "path")
+		 MsgBox "You haved defined your choices for the T2A script on " date "`nFor the Root person:" rp "`nUsing Ancestry.com tree:" url "`nAnd a your hotkeys are > " hotkeyname " <"
 		 change :=  InputBox("Do you to change the Tree and/or the hotkeys, enter Y if yes", "Request to Change",,"Y")
 		;MsgBox 'you said ok' change.value
 		if (change.value = "Y")
@@ -281,8 +283,10 @@ gethotkey(xxx)
 		}
 
 
+	Hotkeyname := ctrlname . Altname . WinName . letter
 	Hotkey := ctrlprefix . Altprefix . Winprefix . letter
 	Iniwrite Hotkey, "t2a.ini","main", "Hotkey"
-	msgbox('Your hotkey >'  hotkey '< was saved to file t2a.ini in the diretory ' A_WorkingDir '`nYour are ready to run T2A')
+	Iniwrite Hotkeyname, "t2a.ini","main", "Hotkeyname"
+	msgbox('Your hotkey >'  hotkeyname '< was saved to file t2a.ini in the diretory ' A_WorkingDir '`nYour are ready to run T2A')
 	}
 }
